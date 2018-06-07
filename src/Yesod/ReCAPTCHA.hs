@@ -9,7 +9,7 @@ module Yesod.ReCAPTCHA
 import Control.Applicative
 import Data.Typeable (Typeable)
 import Yesod.Core (whamlet)
-import qualified Control.Exception.Lifted as E
+import qualified UnliftIO.Exception as E
 import qualified Control.Monad.Trans.Resource as R
 import qualified Data.ByteString.Char8 as B8
 import qualified Data.ByteString.Lazy.Char8 as L8
@@ -163,7 +163,7 @@ check challenge response = do
   if Just response == backdoor
     then return Ok
     else do
-      manager    <- YA.authHttpManager <$> YC.getYesod
+      manager    <- YA.authHttpManager
       privateKey <- recaptchaPrivateKey
       sockaddr   <- W.remoteHost <$> YC.waiRequest
       remoteip <- case sockaddr of
@@ -177,7 +177,7 @@ check challenge response = do
                            \please file a bug report at \
                            \<https://github.com/meteficha/yesod-recaptcha>."
                           fail "Could not find remote IP address for reCAPTCHA."
-      let req = D.def
+      let req = H.defaultRequest
                   { H.method      = HT.methodPost
                   , H.host        = "www.google.com"
                   , H.path        = "/recaptcha/api/verify"

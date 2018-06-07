@@ -31,13 +31,13 @@ Library
     , bytestring
     , text
     , data-default
-    , lifted-base    >= 0.1
-    , yesod-core     >= 1.2   && < 1.5
-    , yesod-auth     >= 1.2   && < 1.5
-    , yesod-form     >= 1.3   && < 1.5
+    , yesod-core     >= 1.6 && < 1.7
+    , yesod-auth     >= 1.6 && < 1.7
+    , yesod-form     >= 1.6 && < 1.7
     , wai
     , network
     , network-info   == 0.2.*
-    , http-conduit   >= 1.5
+    , http-conduit   >= 2.3 && < 2.4
     , http-types
     , resourcet
+    , unliftio >= 0.2.7.0 && < 0.3
